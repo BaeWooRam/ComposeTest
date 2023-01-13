@@ -11,13 +11,13 @@ import org.junit.Assert
 import org.junit.Test
 
 class GetNewsRssTest {
-    private val api = ApiBuilder.build(RssApi.RSS_BASE, RssApi::class.java)
+    private val api = ApiBuilder().build(RssApi.RSS_BASE, RssApi::class.java)
 
     @Test
     fun `기본_동작_테스트_getAll`() {
         CoroutineScope(Dispatchers.IO).run {
             runBlocking {
-                GetNewsRss(api).getAll(RssApi.LanguageType.KR).collect { rss ->
+                GetNewsRss(api).execute(RssApi.LanguageType.KR).collect { rss ->
                     Assert.assertNotNull(rss)
                     Assert.assertNotNull(rss.channel)
                     Assert.assertFalse(rss.channel.item.isEmpty())
