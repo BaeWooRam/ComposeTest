@@ -1,42 +1,83 @@
 package com.geekstudio.composetest.ui.view
 
-import android.text.Html
+import android.content.Context
 import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import android.widget.Toast
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.layout
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.geekstudio.composetest.data.dto.Item
 import com.geekstudio.composetest.data.dto.Rss
-import com.geekstudio.composetest.ui.theme.ComposeTestTheme
 import com.geekstudio.composetest.ui.theme.DefaultMargin
 import com.geekstudio.composetest.utils.Util
 
 @Composable
-fun RssList(rss: Rss) {
+fun RssList(context: Context, rss: Rss) {
     val channel = rss.channel
-    LazyColumn() {
+    val padding = PaddingValues(horizontal = DefaultMargin, vertical = 8.dp)
+    LazyColumn(
+        contentPadding = padding
+    ) {
         itemsIndexed(
             channel.item
         ) { index, item ->
-            ItemCard(item)
+            ItemCard(item) {
+                Toast.makeText(context, "RssList onClick item = $item", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
 
 @Composable
-private fun ItemCard(item: Item){
-    Column {
-        Text(text = Util.decodingHtml(item.title))
-        Text(text = Util.decodingHtml(item.description))
+private fun ItemCard(item: Item, onClick: () -> Unit){
+    Card(
+        modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .fillMaxWidth()
+            .clickable { onClick() },
+        elevation = 2.dp,
+        backgroundColor = Color.White,
+        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = DefaultMargin, vertical = DefaultMargin),
+        ) {
+            Text(
+                fontSize = 20.sp,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start,
+                maxLines = 1,
+                text = Util.decodingHtml(item.title),
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(8.dp).fillMaxWidth())
+            Text(
+                fontSize = 12.sp,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Start,
+                maxLines = 2,
+                text = Util.decodingHtml(item.description),
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }
