@@ -8,9 +8,9 @@ import org.simpleframework.xml.Root
 data class Rss(
     @param:Attribute(name = "version")
     @field:Attribute(name = "version")
-    val version:String = "",
+    var version:String = "",
 
     @param:Element(name = "channel")
     @field:Element(name = "channel")
-    val channel:Channel
+    var channel:Channel? = null
 )
