@@ -16,17 +16,26 @@ import com.geekstudio.composetest.presentation.base.BaseUiState
 import com.geekstudio.composetest.ui.theme.ComposeTestTheme
 import com.geekstudio.composetest.ui.view.RssList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import java.util.Timer
+import java.util.TimerTask
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
-    private val viewModel: MainViewModel by viewModels()
+class MviMainActivity : BaseActivity() {
+    @Inject
+    lateinit var viewModel: MviMainViewModel
     private val titleState = mutableStateOf("")
     private val valueState = mutableStateOf("")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initView(null)
         initUiObserver()
+        initView(null)
     }
 
     override fun onStart() {
@@ -36,33 +45,9 @@ class MainActivity : BaseActivity() {
 
     private fun initUiObserver(){
         repeatOnStarted{
-            viewModel.uiSharedFlow.collect{
-                when(it){
-                    is BaseUiState.Success<*> -> {
-                        when(it.data){
-                            is Rss -> {
-                                Log.d("initUiObserver", "data = ${it.data}")
-                                titleState.value = "Success Title"
-                                valueState.value = "Success Value"
-                                initView(it.data)
-                            }
-
-                            else -> {
-
-                            }
-                        }
-                    }
-                    is BaseUiState.Loading -> {
-                        Log.d("initUiObserver", "loading")
-                        titleState.value = "Loading Title"
-                        valueState.value = "Loading Value"
-                    }
-                    is BaseUiState.Error -> {
-                        Log.d("initUiObserver", "Error = ${it.error}")
-                        titleState.value = "Error Title"
-                        valueState.value = "Error Value"
-                    }
-                }
+            viewModel.state.collect{
+                Log.d("MviMainActivity", "isLoading = ${it.isLoading}, rss = ${it.rss}")
+                initView(it.rss)
             }
         }
     }
@@ -85,7 +70,7 @@ class MainActivity : BaseActivity() {
                         }
 
                         if(rss != null)
-                            RssList(this@MainActivity, rss)
+                            RssList(this@MviMainActivity, rss)
                     }
                 }
             }

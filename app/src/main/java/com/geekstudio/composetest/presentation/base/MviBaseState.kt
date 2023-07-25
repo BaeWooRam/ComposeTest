@@ -1,6 +1,6 @@
 package com.geekstudio.composetest.presentation.base
 
-interface BaseState{
+interface MviBaseState{
     val loading: Boolean?
     val exception: Exception?
 }
