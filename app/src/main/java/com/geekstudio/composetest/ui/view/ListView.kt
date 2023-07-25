@@ -34,7 +34,7 @@ fun RssList(context: Context, rss: Rss) {
         contentPadding = padding
     ) {
         itemsIndexed(
-            channel.item
+            channel!!.item
         ) { index, item ->
             ItemCard(item) {
                 Toast.makeText(context, "RssList onClick item = $item", Toast.LENGTH_SHORT).show()

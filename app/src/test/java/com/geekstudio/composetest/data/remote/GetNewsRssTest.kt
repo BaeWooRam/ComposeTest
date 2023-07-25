@@ -20,7 +20,7 @@ class GetNewsRssTest {
                 GetNewsRss(api).execute(RssApi.LanguageType.KR).collect { rss ->
                     Assert.assertNotNull(rss)
                     Assert.assertNotNull(rss.channel)
-                    Assert.assertFalse(rss.channel.item.isEmpty())
+                    Assert.assertFalse(rss.channel!!.item.isEmpty())
                     println("기본_동작_테스트_getAll rss = $rss")
                 }
             }
