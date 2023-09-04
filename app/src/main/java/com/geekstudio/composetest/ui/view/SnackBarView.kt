@@ -11,11 +11,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun snackBar(lifecycleScope: CoroutineScope) {
+fun snackBar() {
     val scaffoldState = rememberScaffoldState()
     var textState by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
     Scaffold(
+
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState
     ) {
@@ -27,7 +29,7 @@ fun snackBar(lifecycleScope: CoroutineScope) {
             TextField(value = textState, onValueChange = { textValue -> textState = textValue})
             Spacer(modifier = Modifier.size(12.dp))
             Button(onClick = {
-                lifecycleScope.launch {
+                scope.launch {
                     scaffoldState.snackbarHostState.showSnackbar("textState : $textState")
                 }
             }){
