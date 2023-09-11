@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -51,7 +52,7 @@ private fun ItemCard(item: Item, onClick: () -> Unit){
             .fillMaxWidth()
             .clickable { onClick() },
         elevation = 2.dp,
-        backgroundColor = Color.White,
+        backgroundColor = MaterialTheme.colors.background,
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
     ) {
         Column(
