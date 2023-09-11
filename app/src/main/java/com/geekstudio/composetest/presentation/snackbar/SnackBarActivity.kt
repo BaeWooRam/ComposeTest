@@ -61,7 +61,7 @@ class SnackBarActivity : BaseActivity() {
     private fun initView(){
         setContent {
             ComposeTestTheme {
-                snackBar(lifecycleScope = lifecycleScope)
+                snackBar()
             }
         }
     }
