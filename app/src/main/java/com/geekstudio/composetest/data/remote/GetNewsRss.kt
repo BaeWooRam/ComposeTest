@@ -11,7 +11,7 @@ class GetNewsRss(private val rssService: RssApi) {
      * 언어 타입에 따라 RSS 들고 오기
      */
     fun execute(languageType: RssApi.LanguageType): Flow<Rss> {
-        return flow{
+        return flow {
             val item = when (languageType) {
                 RssApi.LanguageType.EN -> {
                     rssService.getEnNewsList()

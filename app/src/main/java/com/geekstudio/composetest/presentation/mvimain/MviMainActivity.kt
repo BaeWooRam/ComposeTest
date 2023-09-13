@@ -35,20 +35,20 @@ class MviMainActivity : BaseActivity() {
         viewModel.loadNewsRss()
     }
 
-    private fun initUiObserver(){
-        repeatOnStarted{
-            viewModel.state.collect{
+    private fun initUiObserver() {
+        repeatOnStarted {
+            viewModel.state.collect {
                 Log.d("MviMainActivity", "isLoading = ${it.isLoading}, rss = ${it.rss}")
                 initView(it.rss)
             }
         }
     }
 
-    private fun initView(rss: Rss?){
+    private fun initView(rss: Rss?) {
         setContent {
             ComposeTestTheme {
-                val titleRemember  = remember { mutableStateOf("") }
-                val valueRemember  = remember { mutableStateOf("") }
+                val titleRemember = remember { mutableStateOf("") }
+                val valueRemember = remember { mutableStateOf("") }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -61,7 +61,7 @@ class MviMainActivity : BaseActivity() {
                             Text(text = "refresh")
                         }
 
-                        if(rss != null)
+                        if (rss != null)
                             RssList(this@MviMainActivity, rss)
                     }
                 }

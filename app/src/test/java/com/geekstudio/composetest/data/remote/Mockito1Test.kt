@@ -13,21 +13,21 @@ class Mockito1Test {
      * Mock 테스트용 클래스
      */
     interface Person {
-        fun eat():EatResult
-        fun sleep():SleepResult
-        fun randomPlay():PlayResult
+        fun eat(): EatResult
+        fun sleep(): SleepResult
+        fun randomPlay(): PlayResult
 
-        sealed class EatResult{
+        sealed class EatResult {
             object Fullness : EatResult()
             object Hungry : EatResult()
         }
 
-        sealed class SleepResult{
+        sealed class SleepResult {
             object VeryGood : SleepResult()
             object Tired : SleepResult()
         }
 
-        sealed class PlayResult{
+        sealed class PlayResult {
             object Game : PlayResult()
             object Singing : PlayResult()
             object Gym : PlayResult()
@@ -35,7 +35,7 @@ class Mockito1Test {
     }
 
     @Before
-    fun setUp(){
+    fun setUp() {
         person = Mockito.mock(Person::class.java)
         //thenThrow 예제
         Mockito.`when`(person.randomPlay()).thenThrow(RuntimeException())

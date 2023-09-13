@@ -6,7 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,12 +37,12 @@ class MainActivity : BaseActivity() {
         viewModel.loadNewsRss()
     }
 
-    private fun initUiObserver(){
-        repeatOnStarted{
-            viewModel.uiSharedFlow.collect{
-                when(it){
+    private fun initUiObserver() {
+        repeatOnStarted {
+            viewModel.uiSharedFlow.collect {
+                when (it) {
                     is BaseUiState.Success<*> -> {
-                        when(it.data){
+                        when (it.data) {
                             is Rss -> {
                                 Log.d("initUiObserver", "data = ${it.data}")
                                 titleState.value = "Success Title"
@@ -67,11 +70,11 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun initView(rss: Rss?){
+    private fun initView(rss: Rss?) {
         setContent {
             ComposeTestTheme {
-                val titleRemember  = remember { titleState }
-                val valueRemember  = remember { valueState }
+                val titleRemember = remember { titleState }
+                val valueRemember = remember { valueState }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -84,7 +87,7 @@ class MainActivity : BaseActivity() {
                             Text(text = "refresh")
                         }
 
-                        if(rss != null)
+                        if (rss != null)
                             RssList(this@MainActivity, rss)
                     }
                 }

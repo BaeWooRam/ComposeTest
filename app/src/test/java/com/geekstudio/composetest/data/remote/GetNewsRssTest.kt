@@ -35,7 +35,7 @@ class GetNewsRssTest {
     }
 
     @Test
-    fun `기본_동작_테스트_getAll`() = runBlocking{
+    fun `기본_동작_테스트_getAll`() = runBlocking {
         GetNewsRss(api).execute(RssApi.LanguageType.KR).collect { rss ->
             Assert.assertNotNull(rss)
             Assert.assertNotNull(rss.channel)
@@ -45,7 +45,7 @@ class GetNewsRssTest {
     }
 
     @Test
-    fun `기본_동작_테스트_MainViewModel`() = runBlocking{
+    fun `기본_동작_테스트_MainViewModel`() = runBlocking {
         mainViewModel.loadNewsRss()
         println("기본_동작_테스트_MainViewModel")
     }

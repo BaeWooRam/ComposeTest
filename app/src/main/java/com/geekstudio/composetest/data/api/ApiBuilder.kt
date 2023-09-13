@@ -18,7 +18,7 @@ class ApiBuilder {
     /**
      *
      */
-    fun <T>build(url:String, clazz:Class<T>): T {
+    fun <T> build(url: String, clazz: Class<T>): T {
         return Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(SimpleXmlConverterFactory.create())
@@ -27,7 +27,7 @@ class ApiBuilder {
             .create(clazz)
     }
 
-    private fun getOkHttpInterceptor():OkHttpClient{
+    private fun getOkHttpInterceptor(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder().addInterceptor(interceptor).build()

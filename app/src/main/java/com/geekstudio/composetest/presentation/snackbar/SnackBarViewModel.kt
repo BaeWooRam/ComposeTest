@@ -16,17 +16,21 @@ import javax.inject.Inject
 @HiltViewModel
 class SnackBarViewModel @Inject constructor(
     private val rssDataSource: RssDataSource
-): ViewModel() {
-    private val _uiSharedFlow = MutableSharedFlow<BaseUiState>(replay = 10, extraBufferCapacity = 20, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+) : ViewModel() {
+    private val _uiSharedFlow = MutableSharedFlow<BaseUiState>(
+        replay = 10,
+        extraBufferCapacity = 20,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
     val uiSharedFlow = _uiSharedFlow.asSharedFlow()
 
     /**
      *
      */
-    fun loadNewsRss(){
+    fun loadNewsRss() {
         viewModelScope.launch {
             _uiSharedFlow.tryEmit(BaseUiState.Loading)
-            rssDataSource.getNewsRss.execute(RssApi.LanguageType.KR).collect{
+            rssDataSource.getNewsRss.execute(RssApi.LanguageType.KR).collect {
                 _uiSharedFlow.tryEmit(BaseUiState.Success(it))
             }
         }

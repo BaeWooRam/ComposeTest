@@ -8,7 +8,7 @@ import org.mockito.Mockito
 class StubTest {
     private lateinit var person: StubPerson
 
-    class StubPerson:Mockito1Test.Person {
+    class StubPerson : Mockito1Test.Person {
         override fun eat(): Mockito1Test.Person.EatResult {
             return Mockito1Test.Person.EatResult.Hungry
         }

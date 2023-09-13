@@ -1,10 +1,8 @@
 package com.geekstudio.composetest.ui.view
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -15,7 +13,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +33,7 @@ fun RssList(context: Context, rss: Rss) {
     ) {
         itemsIndexed(
             channel!!.item
-        ) { index, item ->
+        ) { _, item ->
             ItemCard(item) {
                 Toast.makeText(context, "RssList onClick item = $item", Toast.LENGTH_SHORT).show()
             }
@@ -45,7 +42,7 @@ fun RssList(context: Context, rss: Rss) {
 }
 
 @Composable
-private fun ItemCard(item: Item, onClick: () -> Unit){
+private fun ItemCard(item: Item, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -69,7 +66,11 @@ private fun ItemCard(item: Item, onClick: () -> Unit){
                 text = Util.decodingHtml(item.title),
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.height(8.dp).fillMaxWidth())
+            Spacer(
+                modifier = Modifier
+                    .height(8.dp)
+                    .fillMaxWidth()
+            )
             Text(
                 fontSize = 12.sp,
                 fontFamily = FontFamily.SansSerif,
