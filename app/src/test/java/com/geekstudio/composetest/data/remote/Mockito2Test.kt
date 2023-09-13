@@ -8,7 +8,7 @@ class Mockito2Test {
     private lateinit var person: Mockito1Test.Person
 
     @Before
-    fun setUp(){
+    fun setUp() {
         person = Mockito.mock(Mockito1Test.Person::class.java)
         Mockito.`when`(person.randomPlay()).thenReturn(Mockito1Test.Person.PlayResult.Game)
         Mockito.`when`(person.sleep()).thenReturn(Mockito1Test.Person.SleepResult.VeryGood)

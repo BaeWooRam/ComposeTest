@@ -16,13 +16,13 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRssApi(): RssApi{
+    fun provideRssApi(): RssApi {
         return ApiBuilder().build(RssApi.RSS_BASE, RssApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideDataSource(rssApi: RssApi): RssDataSource{
+    fun provideDataSource(rssApi: RssApi): RssDataSource {
         return RssDataSource(rssApi)
     }
 }

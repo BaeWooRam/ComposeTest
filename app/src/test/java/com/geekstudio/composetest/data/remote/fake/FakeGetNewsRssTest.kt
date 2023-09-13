@@ -1,16 +1,15 @@
 package com.geekstudio.composetest.data.remote.fake
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.geekstudio.composetest.data.api.RssApi
-import com.geekstudio.composetest.data.remote.GetNewsRss
-import com.geekstudio.composetest.data.remote.RssDataSource
-import com.geekstudio.composetest.presentation.main.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import org.junit.*
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 
 
 class FakeGetNewsRssTest {
@@ -32,7 +31,7 @@ class FakeGetNewsRssTest {
     }
 
     @Test
-    fun `FakeGetNewsRss_테스트`() = runBlocking{
+    fun `FakeGetNewsRss_테스트`() = runBlocking {
         fakeRssDataSource.getNewsRss.execute(RssApi.LanguageType.KR).collect {
             println("FakeGetNewsRss_테스트 rss = $it")
             println("FakeGetNewsRss_테스트 channel = ${it.channel}")

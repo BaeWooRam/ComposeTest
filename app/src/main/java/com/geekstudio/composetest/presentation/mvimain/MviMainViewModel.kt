@@ -16,7 +16,7 @@ import javax.inject.Inject
 @InstallIn(ViewModelComponent::class)
 class MviMainViewModel @Inject constructor(
     private val rssDataSource: RssDataSource
-):MviViewModel() {
+) : MviViewModel() {
     private val events = Channel<MviMainEvent>()
 
     // State Reducer
@@ -38,11 +38,11 @@ class MviMainViewModel @Inject constructor(
     /**
      *
      */
-    fun loadNewsRss(){
+    fun loadNewsRss() {
         viewModelScope.launch {
             events.send(MviMainEvent.Loading)
 
-            rssDataSource.getNewsRss.execute(RssApi.LanguageType.KR).collect{
+            rssDataSource.getNewsRss.execute(RssApi.LanguageType.KR).collect {
                 events.send(MviMainEvent.UpdateRss(it))
             }
         }

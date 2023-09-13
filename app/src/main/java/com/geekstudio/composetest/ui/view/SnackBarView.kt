@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Composable
@@ -26,13 +23,13 @@ fun snackBar() {
                 .fillMaxSize()
                 .padding(12.dp)
         ) {
-            TextField(value = textState, onValueChange = { textValue -> textState = textValue})
+            TextField(value = textState, onValueChange = { textValue -> textState = textValue })
             Spacer(modifier = Modifier.size(12.dp))
             Button(onClick = {
                 scope.launch {
                     scaffoldState.snackbarHostState.showSnackbar("textState : $textState")
                 }
-            }){
+            }) {
                 Text(text = "Show SnackBar")
             }
         }

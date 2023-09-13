@@ -8,7 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-open class BaseActivity: ComponentActivity(){
+open class BaseActivity : ComponentActivity() {
 
     /**
      *

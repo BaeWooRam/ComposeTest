@@ -6,8 +6,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class MviViewModel{
-    internal val viewModelScope:CoroutineScope = GlobalScope
-    abstract val state:StateFlow<MviMainState>
-    abstract suspend fun onEvent(event:MviMainEvent)
+abstract class MviViewModel {
+    internal val viewModelScope: CoroutineScope = GlobalScope
+    abstract val state: StateFlow<MviMainState>
+    abstract suspend fun onEvent(event: MviMainEvent)
 }
